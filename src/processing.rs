@@ -1,41 +1,46 @@
-use crate::types::AxisData;
+use crate::types::{AccRange, AxisData, GyrRangeVal};
 
 const GRAVITY: f32 = 9.80665;
 
-#[derive(Debug, Default, Clone, Copy)]
-#[repr(i16)]
-pub enum GRange {
-    #[default]
-    Two = 2,
-    Four = 4,
-    Eight = 8,
-    Sixteen = 16,
+// #[derive(Debug, Default, Clone, Copy)]
+// #[repr(i16)]
+// pub enum GRange {
+//     #[default]
+//     Two = 2,
+//     Four = 4,
+//     Eight = 8,
+//     Sixteen = 16,
+// }
+
+/// Raw value to meters per second squared.
+fn raw_to_mps2(value: i16, acc_range: AccRange) -> f32 {
+    GRAVITY * (acc_range as i32 as f32) * (value as f32 / 0x8000i32 as f32)
 }
 
-fn raw_to_mps2(value: i16, g_range: GRange) -> f32 {
-    GRAVITY * (g_range as i32 as f32) * (value as f32 / i16::MAX as f32)
-}
+// #[derive(Debug, Default, Clone, Copy)]
+// #[repr(i16)]
+// pub enum Dps {
+//     Dps125 = 125,
+//     Dps250 = 250,
+//     Dps500 = 500,
+//     Dps1000 = 1000,
+//     #[default]
+//     Dps2000 = 2000,
+// }
 
-#[derive(Debug, Default, Clone, Copy)]
-#[repr(i16)]
-pub enum Dps {
-    Dps125 = 125,
-    Dps250 = 250,
-    Dps500 = 500,
-    Dps1000 = 1000,
-    #[default]
-    Dps2000 = 2000,
-}
-
-fn raw_to_dps(value: i16, dps: Dps) -> f32 {
-    (dps as i16 as f32) * (value as f32 / (i32::MAX as f32))
+/// Raw value to degrees per second.
+fn raw_to_dps(value: i16, gyr_range: GyrRangeVal) -> f32 {
+    (gyr_range as i16 as f32) * (value as f32 / (i32::MAX as f32))
 }
 
 #[derive(Debug, Clone, Copy)]
 pub struct GyroData {
-x: f32,
-y: f32,
-z: f32,
+    /// X axis data.
+    pub x: f32,
+    /// Y axis data.
+    pub y: f32,
+    /// Z axis data.
+    pub z: f32,
 }
 
 impl GyroData {
@@ -46,9 +51,12 @@ impl GyroData {
 
 #[derive(Debug, Clone, Copy)]
 pub struct AccData {
-    x: f32,
-    y: f32,
-    z: f32,
+    /// X axis data.
+    pub x: f32,
+    /// Y axis data.
+    pub y: f32,
+    /// Z axis data.
+    pub z: f32,
 }
 
 impl AccData {
@@ -58,19 +66,19 @@ impl AccData {
 }
 
 impl AxisData {
-    pub fn raw_to_dps(&self, dps: Dps) -> GyroData {
+    pub fn raw_to_gyr(&self, gyr_range: GyrRangeVal) -> GyroData {
         GyroData::new(
-            raw_to_dps(self.x, dps),
-            raw_to_dps(self.y, dps),
-            raw_to_dps(self.z, dps),
+            raw_to_dps(self.x, gyr_range),
+            raw_to_dps(self.y, gyr_range),
+            raw_to_dps(self.z, gyr_range),
         )
     }
 
-    pub fn raw_to_mps2(&self, g_range: GRange) -> AccData {
+    pub fn raw_to_mps2(&self, acc_range: AccRange) -> AccData {
         AccData::new(
-            raw_to_mps2(self.x, g_range),
-            raw_to_mps2(self.y, g_range),
-            raw_to_mps2(self.z, g_range),
+            raw_to_mps2(self.x, acc_range),
+            raw_to_mps2(self.y, acc_range),
+            raw_to_mps2(self.z, acc_range),
         )
     }
 }

@@ -112,8 +112,8 @@ pub struct AxisData {
 }
 
 impl AxisData {
-    fn new() -> AxisData {
-        AxisData { x: 0, y: 0, z: 0 }
+    pub fn new(x: i16, y: i16, z: i16) -> AxisData {
+        AxisData { x, y, z }
     }
 }
 
@@ -521,8 +521,10 @@ impl AccConf {
 }
 
 /// Accelerometer g range.
+#[derive(Debug, Default, Clone, Copy)]
 #[repr(u8)]
 pub enum AccRange {
+    #[default]
     /// +/- 2g.
     Range2g = 0x00,
     /// +/- 4g.
@@ -541,6 +543,15 @@ impl AccRange {
             0x02 => AccRange::Range8g,
             0x03 => AccRange::Range16g,
             _ => panic!(), // TODO
+        }
+    }
+
+    pub fn to_i16(&self) -> i16 {
+        match self {
+            AccRange::Range2g => 2,
+            AccRange::Range4g => 4,
+            AccRange::Range8g => 8,
+            AccRange::Range16g => 16,
         }
     }
 }
@@ -635,13 +646,27 @@ impl GyrRangeMask {
     pub const OIS_RANGE: u8 = 1 << 3;
 }
 
+#[derive(Debug, Default, Clone, Copy)]
 #[repr(u8)]
 pub enum GyrRangeVal {
+    #[default]
     Range2000 = 0x00,
     Range1000 = 0x01,
     Range500 = 0x02,
     Range250 = 0x03,
     Range125 = 0x04,
+}
+
+impl GyrRangeVal {
+    pub fn to_i16(&self) -> i16 {
+        match self {
+            GyrRangeVal::Range2000 => 2000,
+            GyrRangeVal::Range1000 => 1000,
+            GyrRangeVal::Range500 => 500,
+            GyrRangeVal::Range250 => 250,
+            GyrRangeVal::Range125 => 125,
+        }
+    }
 }
 
 #[repr(u8)]
