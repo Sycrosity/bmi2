@@ -58,7 +58,7 @@ impl AccData {
 }
 
 impl AxisData {
-    pub fn raw_to_dps(&mut self, dps: Dps) -> GyroData {
+    pub fn raw_to_dps(&self, dps: Dps) -> GyroData {
         GyroData::new(
             raw_to_dps(self.x, dps),
             raw_to_dps(self.y, dps),
@@ -66,7 +66,7 @@ impl AxisData {
         )
     }
 
-    pub fn raw_to_mps2(&mut self, g_range: GRange) -> AccData {
+    pub fn raw_to_mps2(&self, g_range: GRange) -> AccData {
         AccData::new(
             raw_to_mps2(self.x, g_range),
             raw_to_mps2(self.y, g_range),
