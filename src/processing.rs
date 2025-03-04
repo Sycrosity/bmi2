@@ -4,7 +4,7 @@ const GRAVITY: f32 = 9.80665;
 
 #[derive(Debug, Default, Clone, Copy)]
 #[repr(i16)]
-enum GRange {
+pub enum GRange {
     #[default]
     Two = 2,
     Four = 4,
@@ -18,7 +18,7 @@ fn raw_to_mps2(value: i16, g_range: GRange) -> f32 {
 
 #[derive(Debug, Default, Clone, Copy)]
 #[repr(i16)]
-enum Dps {
+pub enum Dps {
     Dps125 = 125,
     Dps250 = 250,
     Dps500 = 500,
@@ -32,10 +32,10 @@ fn raw_to_dps(value: i16, dps: Dps) -> f32 {
 }
 
 #[derive(Debug, Clone, Copy)]
-struct GyroData {
-    x: f32,
-    y: f32,
-    z: f32,
+pub struct GyroData {
+x: f32,
+y: f32,
+z: f32,
 }
 
 impl GyroData {
@@ -45,14 +45,14 @@ impl GyroData {
 }
 
 #[derive(Debug, Clone, Copy)]
-struct AccData {
+pub struct AccData {
     x: f32,
     y: f32,
     z: f32,
 }
 
 impl AccData {
-    fn new(x: f32, y: f32, z: f32) -> Self {
+    pub fn new(x: f32, y: f32, z: f32) -> Self {
         Self { x, y, z }
     }
 }
