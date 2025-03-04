@@ -99,7 +99,7 @@ impl Status {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 /// Axis data.
 pub struct AxisData {
@@ -117,7 +117,7 @@ impl AxisData {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 /// Auxiliary sensor data.
 pub struct AuxData {
@@ -128,7 +128,7 @@ pub struct AuxData {
     pub r: i16,
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 /// Sensor data.
 pub struct Data {
