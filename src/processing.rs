@@ -2,7 +2,7 @@ use crate::types::AxisData;
 
 const GRAVITY: f32 = 9.80665;
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, Copy)]
 #[repr(i16)]
 enum GRange {
     #[default]
@@ -16,7 +16,7 @@ fn raw_to_mps2(value: i16, g_range: GRange) -> f32 {
     GRAVITY * (g_range as i32 as f32) * (value as f32 / i16::MAX as f32)
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, Copy)]
 #[repr(i16)]
 enum Dps {
     Dps125 = 125,
@@ -31,7 +31,7 @@ fn raw_to_dps(value: i16, dps: Dps) -> f32 {
     (dps as i16 as f32) * (value as f32 / (i32::MAX as f32))
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 struct GyroData {
     x: f32,
     y: f32,
@@ -44,7 +44,7 @@ impl GyroData {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 struct AccData {
     x: f32,
     y: f32,
@@ -58,11 +58,11 @@ impl AccData {
 }
 
 impl AxisData {
-    pub fn raw_to_dps(&mut self, dps: Dps) -> GryoData {
+    pub fn raw_to_dps(&mut self, dps: Dps) -> GyroData {
         GyroData::new(
-            raw_to_mps2(self.x, g_range),
-            raw_to_mps2(self.y, g_range),
-            raw_to_mps2(self.z, g_range),
+            raw_to_dps(self.x, dps),
+            raw_to_dps(self.y, dps),
+            raw_to_dps(self.z, dps),
         )
     }
 
