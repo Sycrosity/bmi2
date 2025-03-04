@@ -669,12 +669,14 @@ impl GyrRangeVal {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 #[repr(u8)]
 pub enum OisRange {
     Range250 = 0x00,
     Range2000 = 0x01,
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct GyrRange {
     pub range: GyrRangeVal,
     pub ois_range: OisRange,
