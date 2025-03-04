@@ -53,16 +53,12 @@ where
 {
     type Error = Error<I2C::Error>;
     fn write(&mut self, payload: &mut [u8]) -> Result<(), Self::Error> {
-        self.i2c
-            .write(self.address, payload)
-            .map_err(Error::Comm)
+        self.i2c.write(self.address, payload).map_err(Error::Comm)
     }
 
     fn write_reg(&mut self, register: u8, data: u8) -> Result<(), Self::Error> {
         let payload: [u8; 2] = [register, data];
-        self.i2c
-            .write(self.address, &payload)
-            .map_err(Error::Comm)
+        self.i2c.write(self.address, &payload).map_err(Error::Comm)
     }
 }
 
@@ -130,8 +126,8 @@ where
         let res = self.spi.read(&mut payload).map_err(Error::Comm);
 
         match res {
-                Ok(_) => Ok(payload[1]),
-                Err(e) => Err(e)
-        }   
+            Ok(_) => Ok(payload[1]),
+            Err(e) => Err(e),
+        }
     }
 }

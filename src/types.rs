@@ -1,5 +1,5 @@
 #[cfg(feature = "serde")]
-use serde::{Serialize,Deserialize};
+use serde::{Deserialize, Serialize};
 
 /// The possible errors that could be encountered.
 #[derive(Debug)]
@@ -111,6 +111,12 @@ pub struct AxisData {
     pub z: i16,
 }
 
+impl AxisData {
+    fn new() -> AxisData {
+        AxisData { x: 0, y: 0, z: 0 }
+    }
+}
+
 #[derive(Debug, Clone, Copy)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 /// Auxiliary sensor data.
@@ -121,8 +127,6 @@ pub struct AuxData {
     /// Last aux registers data.
     pub r: i16,
 }
-
-
 
 #[derive(Debug, Clone, Copy)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
