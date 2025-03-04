@@ -1,3 +1,6 @@
+#[cfg(feature = "serde")]
+use serde::{Serialize,Deserialize};
+
 /// The possible errors that could be encountered.
 #[derive(Debug)]
 pub enum Error<CommE> {
@@ -108,6 +111,7 @@ pub struct AxisData {
 }
 
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 /// Auxiliary sensor data.
 pub struct AuxData {
     /// Axis data.
@@ -117,7 +121,10 @@ pub struct AuxData {
     pub r: i16,
 }
 
+
+
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 /// Sensor data.
 pub struct Data {
     /// Accelerometer data.

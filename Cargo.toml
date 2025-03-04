@@ -14,3 +14,7 @@ keywords = ["bmi2", "bmi270", "bmi260", "embedded-hal", "imu"]
 [dependencies]
 embedded-hal = "1"
 fixedvec = "0.2.4"
+serde = { version = "1", optional = true, features = ["derive"], default-features = false }
+
+[features]
+serde = ["dep:serde"]
