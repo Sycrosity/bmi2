@@ -100,6 +100,7 @@ impl Status {
 }
 
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 /// Axis data.
 pub struct AxisData {
     /// X axis data.
