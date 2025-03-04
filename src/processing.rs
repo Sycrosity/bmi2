@@ -14,7 +14,7 @@ const GRAVITY: f32 = 9.80665;
 
 /// Raw value to meters per second squared.
 fn raw_to_mps2(value: i16, acc_range: AccRange) -> f32 {
-    GRAVITY * (acc_range as i32 as f32) * (value as f32 / 0x8000i32 as f32)
+    GRAVITY * (acc_range.to_i16() as f32) * (value as f32 / 0x8000i32 as f32)
 }
 
 // #[derive(Debug, Default, Clone, Copy)]
@@ -30,7 +30,7 @@ fn raw_to_mps2(value: i16, acc_range: AccRange) -> f32 {
 
 /// Raw value to degrees per second.
 fn raw_to_dps(value: i16, gyr_range: GyrRangeVal) -> f32 {
-    (gyr_range as i16 as f32) * (value as f32 / (i32::MAX as f32))
+    (gyr_range.to_i16() as f32) * (value as f32 / (i32::MAX as f32))
 }
 
 #[derive(Debug, Clone, Copy)]
