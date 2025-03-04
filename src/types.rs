@@ -255,6 +255,7 @@ impl WristGestureActivityMask {
     pub const ACTIVITY: u8 = 0b0001_1000;
 }
 
+#[derive(Debug)]
 /// Wrist gestures.
 #[repr(u8)]
 pub enum WristGesture {
@@ -272,6 +273,7 @@ pub enum WristGesture {
     FlickOut = 0x05,
 }
 
+#[derive(Debug)]
 /// Activity detection.
 #[repr(u8)]
 pub enum Activity {
@@ -285,6 +287,7 @@ pub enum Activity {
     Unknown = 0x03,
 }
 
+#[derive(Debug)]
 /// Wrist gesture and activity.
 pub struct WristGestureActivity {
     /// Wrist gesture.
@@ -323,6 +326,7 @@ impl InternalStatusMask {
     pub const ODR_50HZ_ERROR: u8 = 1 << 6;
 }
 
+#[derive(Debug)]
 /// Internal status message.
 #[repr(u8)]
 pub enum Message {
@@ -344,6 +348,7 @@ pub enum Message {
     CompatErr = 0x07,
 }
 
+#[derive(Debug)]
 /// Internal status.
 pub struct InternalStatus {
     /// Internal status message.
@@ -383,6 +388,7 @@ impl AccConfMask {
     pub const ACC_FILTER_PERF: u8 = 1 << 7;
 }
 
+#[derive(Debug)]
 /// Accelerometer Output Data Rate in Hz.
 #[repr(u8)]
 pub enum Odr {
@@ -418,6 +424,7 @@ pub enum Odr {
     Odr12k8 = 0x0F,
 }
 
+#[derive(Debug)]
 /// Accelerometer filter config & averaging.
 #[repr(u8)]
 pub enum AccBwp {
@@ -439,6 +446,7 @@ pub enum AccBwp {
     ResAvg128 = 0x07,
 }
 
+#[derive(Debug)]
 /// Accelerometer filter performance mode.
 #[repr(u8)]
 pub enum PerfMode {
@@ -448,6 +456,7 @@ pub enum PerfMode {
     Perf = 0x01,
 }
 
+#[derive(Debug)]
 /// Accelerometer configuration.
 pub struct AccConf {
     /// Accelerometer Output Data Rate in Hz.
