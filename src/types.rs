@@ -564,6 +564,7 @@ impl GyrConfMask {
     pub const GYR_FILTER_PERF: u8 = 1 << 7;
 }
 
+#[derive(Debug)]
 /// Gyroscope filter config & averaging.
 #[repr(u8)]
 pub enum GyrBwp {
@@ -577,6 +578,7 @@ pub enum GyrBwp {
     Res = 0x03,
 }
 
+#[derive(Debug)]
 /// Gyroscope configuration.
 pub struct GyrConf {
     /// Gyroscope Output Data Rate in Hz.
