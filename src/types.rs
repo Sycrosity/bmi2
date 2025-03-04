@@ -96,6 +96,7 @@ impl Status {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 /// Axis data.
 pub struct AxisData {
     /// X axis data.
@@ -106,6 +107,7 @@ pub struct AxisData {
     pub z: i16,
 }
 
+#[derive(Debug, Clone, Copy)]
 /// Auxiliary sensor data.
 pub struct AuxData {
     /// Axis data.
@@ -115,6 +117,7 @@ pub struct AuxData {
     pub r: i16,
 }
 
+#[derive(Debug, Clone, Copy)]
 /// Sensor data.
 pub struct Data {
     /// Accelerometer data.
