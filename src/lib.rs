@@ -12,3 +12,5 @@ pub mod types;
 
 pub mod bmi2;
 pub use bmi2::Bmi2;
+
+pub mod processing;
