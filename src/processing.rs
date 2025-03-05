@@ -13,8 +13,8 @@ const GRAVITY: f32 = 9.80665;
 // }
 
 /// Raw value to meters per second squared.
-fn raw_to_mps2(value: i16, acc_range: AccRange, odr: Odr) -> f32 {
-    odr.to_seconds() * GRAVITY * (acc_range.to_i16() as f32) * (value as f32 / 0x8000i32 as f32)
+fn raw_to_mps2(value: i16, acc_range: AccRange) -> f32 {
+    GRAVITY * (acc_range.to_i16() as f32) * (value as f32 / 0x8000i32 as f32)
 }
 
 // #[derive(Debug, Default, Clone, Copy)]
@@ -74,11 +74,11 @@ impl AxisData {
         )
     }
 
-    pub fn raw_to_mps2(&self, acc_range: AccRange, odr: Odr) -> AccData {
+    pub fn raw_to_mps2(&self, acc_range: AccRange) -> AccData {
         AccData::new(
-            raw_to_mps2(self.x, acc_range, odr),
-            raw_to_mps2(self.y, acc_range, odr),
-            raw_to_mps2(self.z, acc_range, odr),
+            raw_to_mps2(self.x, acc_range),
+            raw_to_mps2(self.y, acc_range),
+            raw_to_mps2(self.z, acc_range),
         )
     }
 }
