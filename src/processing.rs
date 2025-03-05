@@ -29,7 +29,7 @@ fn raw_to_mps2(value: i16, acc_range: AccRange, odr: Odr) -> f32 {
 // }
 
 /// Raw value to degrees per second.
-fn raw_to_dps(value: i16, gyr_range: GyrRangeVal) -> f32 {
+fn raw_to_dps(value: i16, gyr_range: GyrRangeVal, odr: Odr) -> f32 {
     odr.to_seconds() * (gyr_range.to_i16() as f32) * (value as f32 / (i32::MAX as f32))
 }
 
