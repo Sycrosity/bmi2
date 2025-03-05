@@ -393,7 +393,7 @@ impl AccConfMask {
     pub const ACC_FILTER_PERF: u8 = 1 << 7;
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 /// Accelerometer Output Data Rate in Hz.
 #[repr(u8)]
 pub enum Odr {
