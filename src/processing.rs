@@ -1,4 +1,4 @@
-use crate::types::{AccRange, AxisData, GyrRangeVal};
+use crate::types::{AccRange, AxisData, GyrRangeVal, Odr};
 
 const GRAVITY: f32 = 9.80665;
 
@@ -13,8 +13,8 @@ const GRAVITY: f32 = 9.80665;
 // }
 
 /// Raw value to meters per second squared.
-fn raw_to_mps2(value: i16, acc_range: AccRange) -> f32 {
-    GRAVITY * (acc_range.to_i16() as f32) * (value as f32 / 0x8000i32 as f32)
+fn raw_to_mps2(value: i16, acc_range: AccRange, odr: Odr) -> f32 {
+    odr.to_seconds() * GRAVITY * (acc_range.to_i16() as f32) * (value as f32 / 0x8000i32 as f32)
 }
 
 // #[derive(Debug, Default, Clone, Copy)]
@@ -30,7 +30,7 @@ fn raw_to_mps2(value: i16, acc_range: AccRange) -> f32 {
 
 /// Raw value to degrees per second.
 fn raw_to_dps(value: i16, gyr_range: GyrRangeVal) -> f32 {
-    (gyr_range.to_i16() as f32) * (value as f32 / (i32::MAX as f32))
+    odr.to_seconds() * (gyr_range.to_i16() as f32) * (value as f32 / (i32::MAX as f32))
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -66,19 +66,19 @@ impl AccData {
 }
 
 impl AxisData {
-    pub fn raw_to_gyr(&self, gyr_range: GyrRangeVal) -> GyroData {
+    pub fn raw_to_gyr(&self, gyr_range: GyrRangeVal, odr: Odr) -> GyroData {
         GyroData::new(
-            raw_to_dps(self.x, gyr_range),
-            raw_to_dps(self.y, gyr_range),
-            raw_to_dps(self.z, gyr_range),
+            raw_to_dps(self.x, gyr_range, odr),
+            raw_to_dps(self.y, gyr_range, odr),
+            raw_to_dps(self.z, gyr_range, odr),
         )
     }
 
-    pub fn raw_to_mps2(&self, acc_range: AccRange) -> AccData {
+    pub fn raw_to_mps2(&self, acc_range: AccRange, odr: Odr) -> AccData {
         AccData::new(
-            raw_to_mps2(self.x, acc_range),
-            raw_to_mps2(self.y, acc_range),
-            raw_to_mps2(self.z, acc_range),
+            raw_to_mps2(self.x, acc_range, odr),
+            raw_to_mps2(self.y, acc_range, odr),
+            raw_to_mps2(self.z, acc_range, odr),
         )
     }
 }

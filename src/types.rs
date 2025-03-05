@@ -1,3 +1,4 @@
+use fugit::Rate;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -426,6 +427,32 @@ pub enum Odr {
     Odr6k4 = 0x0E,
     /// 12800 Hz.
     Odr12k8 = 0x0F,
+}
+
+impl Odr {
+    pub fn to_hz(&self) -> f32 {
+        match &self {
+            Odr::Odr0p78 => 25. / 32.,
+            Odr::Odr1p5 => 25. / 16.,
+            Odr::Odr3p1 => 25. / 8.,
+            Odr::Odr6p25 => 25. / 4.,
+            Odr::Odr12p5 => 25. / 2.,
+            Odr::Odr25 => 25.,
+            Odr::Odr50 => 50.,
+            Odr::Odr100 => 100.,
+            Odr::Odr200 => 200.,
+            Odr::Odr400 => 400.,
+            Odr::Odr800 => 800.,
+            Odr::Odr1k6 => 1600.,
+            Odr::Odr3k2 => 3200.,
+            Odr::Odr6k4 => 6400.,
+            Odr::Odr12k8 => 12800.,
+        }
+    }
+
+    pub fn to_seconds(&self) -> f32 {
+        1. / self.to_hz()
+    }
 }
 
 #[derive(Debug)]
